@@ -1,7 +1,7 @@
 {
   "name": "serverswitcher",
   "version": "1.0.0",
-  "description": "This server for OpenGuessr uses an API to monitor the availability of servers and switches to backup servers if necessary.",
+  "description": "This server uses UptimeRobot and Cloudflare to automate failover.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

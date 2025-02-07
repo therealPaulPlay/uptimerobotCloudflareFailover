@@ -2,27 +2,26 @@ const axios = require('axios');
 const cron = require('node-cron');
 
 // Configuration
-const uptimeRobotApiKey = 'ur2668505-c1c0b82ddde31edbbf4effb0';
-const cloudflareApiKey = 'lXNHQjU2DWm-UMpORU-69-RtTm9FxBjpFKqIIvqb';
-const cloudflareZoneId = 'ee57d0e2d8ab3de831a2a93d83391ef4';
+const uptimeRobotApiKey = 'your-uptimerobot-api-key';
+const cloudflareApiKey = 'your-cloudflare-token';
+const cloudflareZoneId = 'your-zone-id';
 const checkInterval = '*/1 * * * *'; // Every 1 minute
 
-const backupIP = '62.171.134.159';
+const backupIP = 'your-backup-ip';
 
 // DNS entries to switch for each monitor - these numbers are the monitor IDs from uptime robot
-// Add more monitors as objects with IDs inside of the monitorConfig (no upper limit)
+// Add more monitors as objects with IDs inside of the monitorConfig (more than one is supported)
 const monitorConfig = {
     '797680283': { // Backend server monitor ID
-        dnsEntries: ['accounts.openguessr.com', 'competitions.openguessr.com', 'maps.openguessr.com'], // '@' for root domain or '*' for wildcard subdomains is not supported - the Cloudflare API wants to get these as example.com or *.example.com
-        primaryIP: '45.10.163.87'
+        dnsEntries: ['one.example.com', 'two.example.com', 'three.example.com'], // '@' for root domain or '*' for wildcard subdomains is not supported - the Cloudflare API wants to get these as example.com or *.example.com
+        primaryIP: 'your-server-ip'
     }
 };
 
+const switchDNS = true; // Set to `true` to enable DNS switching, `false` for simply testing
+
 // Tracking DNS state
 let currentDNSState = {};
-
-// Control whether DNS entries should actually be switched (for debugging)
-const switchDNS = true; // Set to `true` to enable DNS switching
 
 // Fetch the current state of DNS entries
 async function fetchCurrentDNSState() {
@@ -136,8 +135,4 @@ async function checkServers() {
 
 // Schedule DNS checks every 1 minute
 cron.schedule(checkInterval, checkServers);
-
 console.log('Failover system initialized.');
-
-// Test - switch the locations subdomain over to its primary ip (that it is already using)
-// switchCloudflareDNS(monitorConfig[797680280].dnsEntries[0], monitorConfig[797680280].primaryIP);

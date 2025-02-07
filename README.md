@@ -1,2 +1,3 @@
 # serverSwitcher
-This server for OpenGuessr uses an API to monitor the availability of servers and switches to backup servers if necessary.
+This script be used with the `UptimeRobot API` and the `Cloudflare API` to automate failover by changing the DNS to backup servers.
+Please refer to the comments in `index.js` for more information. Run this on a server with node or docker.
